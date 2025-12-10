@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "cn.elytra.mod.drop_like_copper.mixins",
+  "minVersion": "0.8.5",
+  "mixins": [
+    "CompositeEntryBaseAccessor",
+    "LootItemAccessor",
+    "LootPoolAccessor",
+    "LootPoolBuilderAccessor",
+    "LootPoolSingletonContainerAccessor",
+    "LootTableMixin",
+    "NestedLootTableAccessor",
+    "TagEntryAccessor"
+  ]
+}
