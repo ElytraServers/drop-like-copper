@@ -1,25 +1,21 @@
+# Drop Like Copper
 
-Installation information
-=======
+![](src/main/resources/drop_like_copper.png)
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions provided by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+Have you ever noticed that the Copper ores drops more Raw Copper? It always makes inventories filled with bunch of
+coppers, which, in most cases, is useless.
 
-Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
+## As Mod
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
+Drop Like Copper changes the looting behavior of other ores, making them drop as much as coppers do.
 
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
+## As Lib
 
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+By the way, Drop Like Copper can also be used as a library for looting stuff, lmk if you want more features.
+
+Calling `DropLikeCopperAPI.setLibraryMode()` will disable the default behavior of Drop Like Copper.
+
+It introduced few events for you to manipulate the looting table, like `LootingEvent.LootingPool`.
+You can find an example in `cn.elytra.mod.drop_like_copper.internal.DropLikeCopperCore`, which is the default behavior.
+
+And some handy delegate classes in `cn.elytra.mod.drop_like_copper.api.delegate` when manipulating them.
