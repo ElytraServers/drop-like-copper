@@ -5,6 +5,7 @@ import cn.elytra.mod.drop_like_copper.mixins.LootPoolAccessor;
 import com.google.common.collect.Streams;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -43,7 +44,7 @@ public class LootingUtils {
     public static LootTable getLootTableFromNested(Either<ResourceKey<LootTable>, LootTable> tableEither,
         LootContext context) {
         return tableEither.map(
-            key -> context.getResolver().get(key).map(Holder::value).orElse(LootTable.EMPTY),
+            key -> context.getResolver().get(Registries.LOOT_TABLE, key).map(Holder::value).orElse(LootTable.EMPTY),
             Function.identity());
     }
 }

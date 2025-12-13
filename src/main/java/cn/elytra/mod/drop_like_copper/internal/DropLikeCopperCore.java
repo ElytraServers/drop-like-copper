@@ -5,6 +5,7 @@ import cn.elytra.mod.drop_like_copper.api.LootingEvent;
 import cn.elytra.mod.drop_like_copper.api.delegate.CopperLootPool;
 import cn.elytra.mod.drop_like_copper.api.delegate.CopperLootPoolSingletonContainer;
 import cn.elytra.mod.drop_like_copper.api.utils.LootPoolWalker;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -28,7 +29,8 @@ public class DropLikeCopperCore {
         // ignore when in lib mode
         if (DropLikeCopperAPI.isLibraryMode()) return;
         // check if the block is ore
-        if (event.getLootContext().getParameter(LootContextParams.BLOCK_STATE).is(Tags.Blocks.ORES)) {
+        BlockState blockState = event.getLootContext().getParamOrNull(LootContextParams.BLOCK_STATE);
+        if (blockState != null && blockState.is(Tags.Blocks.ORES)) {
             LootPool resultPool = event.getResultPool();
             CopperLootPool.of(resultPool).walkAllSingletonEntries(c -> {
                 modifyOreDrops(c);
