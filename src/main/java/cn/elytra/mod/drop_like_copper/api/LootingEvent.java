@@ -1,6 +1,8 @@
 package cn.elytra.mod.drop_like_copper.api;
 
 import cn.elytra.mod.drop_like_copper.api.delegate.CopperLootPoolBuilder;
+import cn.elytra.mod.drop_like_copper.api.utils.LootUtils;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -90,6 +92,16 @@ public abstract class LootingEvent extends Event {
         }
 
         /**
+         * Make {@link #getResultPool()} cloned, so that any changes directly to the pool won't affect the next roll.
+         *
+         * @return the cloned result pool
+         */
+        public LootPool setResultPoolCloned() {
+            this.resultPool = LootUtils.clone(resultPool, getRegistryAccess());
+            return resultPool;
+        }
+
+        /**
          * Modify the executing loot delegate.
          * <p>
          * A builder with copied data (entries, conditions, functions) from the existing delegate that triggered the
@@ -105,6 +117,10 @@ public abstract class LootingEvent extends Event {
             CopperLootPoolBuilder builder = CopperLootPoolBuilder.fromExisting(resultPool);
             builderConsumer.accept(builder);
             this.resultPool = builder.build();
+        }
+
+        public RegistryAccess.Frozen getRegistryAccess() {
+            return getLootContext().getLevel().getServer().registryAccess();
         }
     }
 
